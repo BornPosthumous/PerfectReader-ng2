@@ -12,3 +12,5 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule);
 
 console.log("Bootstrapped")
+
+console.log("two")
