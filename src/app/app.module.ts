@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+console.log("What is ngModule")
 @NgModule({
   declarations: [
     AppComponent
