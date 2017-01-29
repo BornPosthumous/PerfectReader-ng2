@@ -10,7 +10,3 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
-
-console.log("one")
-
-console.log("two")
