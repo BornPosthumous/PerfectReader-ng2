@@ -31,6 +31,7 @@ export class SimpleFormComponent implements OnInit {
     constructor( @Inject('mail') private mail, @Inject('http') private http) { }
 
     ngOnInit() {
+        console.log("init")
         this.items = this.http.getParagraphs()
             .mergeMap((item) => item)
             .map((e) => { return e.paragraph })

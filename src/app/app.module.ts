@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
 
 import { HttpService, MailService, ServicesModule } from './services/services.module';
-import { WidgetModule } from './widgets/widget.module';
+import { ParagraphsModule } from './components/paragraphs.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +18,7 @@ import { WidgetModule } from './widgets/widget.module';
         BrowserModule,
         FormsModule,
         HttpModule,
-        WidgetModule,
+        ParagraphsModule,
         ServicesModule.forRoot()
     ],
     providers: [
