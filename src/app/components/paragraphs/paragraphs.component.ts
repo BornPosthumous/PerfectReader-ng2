@@ -13,7 +13,6 @@ export class ParagraphsComponent implements OnInit {
 
     ngOnInit() {
         console.log(this.items);
-
     }
 
 }
