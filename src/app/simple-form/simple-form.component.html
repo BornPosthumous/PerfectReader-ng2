@@ -1,13 +1,15 @@
-<input
-  #paragraphnum
-  type="text"
->
+<!-- <input
+     #paragraphnum
+     type="text"
+     >
 
-<button (click)="update.emit({text: message})">Click me! </button>
+     <button (click)="update.emit({text: message})">Click me! </button>
 
-<li (click)="toggleSelected()">
-  <span *ngIf="selected" >I'm Selected</span>
-  <span *ngIf="!selected" >Unselected</span>
-</li>
+     <li (click)="toggleSelected()">
+     <span *ngIf="selected" >I'm Selected</span>
+     <span *ngIf="!selected" >Unselected</span>
+     </li> -->
 
-<app-paragraphs [items]="items"></app-paragraphs>
+<div *ngIf="paragraphs">
+  <app-paragraphs [paragraphs]="paragraphs"></app-paragraphs>
+</div>

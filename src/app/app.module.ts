@@ -22,7 +22,6 @@ import { ParagraphsModule } from './components/paragraphs.module';
         ServicesModule.forRoot()
     ],
     providers: [
-        { provide: 'mail', useClass: MailService },
         { provide: 'http', useClass: HttpService }
     ],
     bootstrap: [AppComponent]

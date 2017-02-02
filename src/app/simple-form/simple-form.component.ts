@@ -23,29 +23,20 @@ import { Subject } from "rxjs/Subject"
 })
 export class SimpleFormComponent implements OnInit {
 
-    @Input() message;
+    // @Input() message;
 
-    @Output() update = new EventEmitter();
+    // @Output() update = new EventEmitter();
 
-    // selected = true;
     items = new Subject();
+    paragraphs = [];
 
-    constructor( @Inject('mail') private mail, @Inject('http') private http) { }
+    constructor( @Inject('http') private http) { }
 
     ngOnInit() {
         this.items = this.http.getParagraphs()
             .flatMap((item) => item)
             .map((e) => { return e.paragraph })
             .reduce((acc, cur) => ([...acc, cur]), [])
-            .do((x) => { console.log(x); return x })
+            .subscribe((x) => { this.paragraphs = x })
     }
-
-    // toggleSelected() {
-    //     this.selected = !this.selected;
-    //     console.log(this.selected)
-    // }
-
-    // onClick(event, value) {
-    //     console.log(event, value);
-    // }
 }

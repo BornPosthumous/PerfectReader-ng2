@@ -7,12 +7,10 @@ import { Component, OnInit, Input, Pipe } from '@angular/core';
 })
 export class ParagraphsComponent implements OnInit {
 
-    @Input() items;
+    @Input() paragraphs;
 
     constructor() { }
 
-    ngOnInit() {
-        console.log(this.items);
-    }
+    ngOnInit() { }
 
 }

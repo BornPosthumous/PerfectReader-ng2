@@ -7,9 +7,6 @@ import { Component, Inject } from '@angular/core';
 })
 export class AppComponent {
 
-    constructor( @Inject('mail') private mail) { }
+    constructor() { }
 
-    onUpdate(id, text) {
-        this.mail.update(id, text)
-    }
 }
