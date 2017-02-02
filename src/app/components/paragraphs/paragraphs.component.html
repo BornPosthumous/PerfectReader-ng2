@@ -2,5 +2,5 @@
 <div *ngFor="let paragraph of paragraphs">
   <app-paragraph
     [paragraph]="paragraph"
-    (update)="onUpdate($event)"></app-paragraph>
+    (selection)="onSelection($event)"></app-paragraph>
 </div>

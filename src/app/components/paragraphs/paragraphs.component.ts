@@ -23,17 +23,19 @@ export class ParagraphsComponent implements OnInit {
     constructor( @Inject('http') private http) { }
 
     ngOnInit() {
+
         this.items =
             this.http.getParagraphs()
                 .flatMap((item) => item)
                 .reduce((acc, cur) => ([...acc, { id: cur.id, text: cur.paragraph }]), [])
                 .subscribe((x) => { this.paragraphs = x })
+
     }
 
-    onUpdate(e) {
-        this.paragraph = this.paragraphs.reduce((acc, cur) => { return (e.id == cur.id) ? cur : acc; });
+    onSelection(e) {
 
-        // this.paragraph = this.paragraphs.filter((p) => p.id == e.id)[0].text;
-        console.log(this.paragraph);
+        this.paragraph =
+            this.paragraphs
+                .reduce((acc, cur) => { return (e.id == cur.id) ? cur : acc; });
     }
 }

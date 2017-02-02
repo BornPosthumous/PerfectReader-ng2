@@ -8,16 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ParagraphComponent implements OnInit {
 
     @Input() paragraph;
-    @Output() update = new EventEmitter();
-    selected = false;
+    @Output() selection = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() { }
 
-    select(e) {
-        this.update.emit({ id: this.paragraph.id })
-        console.log(this.selected)
+    makeSelection(e) {
+        this.selection.emit({ id: this.paragraph.id })
     }
 
 }
