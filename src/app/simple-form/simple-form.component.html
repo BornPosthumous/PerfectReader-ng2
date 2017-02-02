@@ -1,0 +1,17 @@
+<input
+  #myInput
+  type="text"
+  [(ngModel)]="message"
+  [ngClass]="{mousedown: isMousedown}"
+  (mousedown)="isMousedown=true"
+  (mouseup)="isMousedown=false"
+  (mouseleave)="isMousedown=false">
+
+<button (click)="update.emit({text: message})">Click me! </button>
+
+<li (click)="toggleSelected()">
+  <span *ngIf="selected" >I'm Selected</span>
+  <span *ngIf="!selected" >Unselected</span>
+</li>
+
+<app-widget-one [items]="items"></app-widget-one>

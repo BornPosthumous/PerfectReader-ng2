@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+input: focus {
+  color: blue;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.mousedown {
+  border: 2px solid green;
+  padding: 50px 0px;
+  background-color: grey;
+}
+
+button,
+input {
+  border: none;
+}
