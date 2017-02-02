@@ -12,7 +12,6 @@ import { ParagraphsModule } from './components/paragraphs.module';
 @NgModule({
     declarations: [
         AppComponent,
-        // SimpleFormComponent,1
     ],
     imports: [
         BrowserModule,
