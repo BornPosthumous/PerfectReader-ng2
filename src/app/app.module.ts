@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-//import { SimpleFormComponent } from './simple-form/simple-form.component';
 
-import { HttpService, MailService, ServicesModule } from './services/services.module';
+import { HttpService, MailService, ServicesModule, TextService } from './services/services.module';
 import { ParagraphsModule } from './components/paragraphs.module';
 
 @NgModule({
@@ -14,14 +13,15 @@ import { ParagraphsModule } from './components/paragraphs.module';
         AppComponent,
     ],
     imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
+        BrowserModule, // ngDep
+        FormsModule, // ngDep
+        HttpModule, // ngDep
         ParagraphsModule,
         ServicesModule.forRoot()
     ],
     providers: [
-        { provide: 'http', useClass: HttpService }
+        { provide: 'http', useClass: HttpService },
+        { provide: 'text', useClass: TextService }
     ],
     bootstrap: [AppComponent]
 })

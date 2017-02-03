@@ -1,6 +1,8 @@
+<div class="paragraph-container">
 <app-paragraph-detail [paragraph]="paragraph"></app-paragraph-detail>
-<div *ngFor="let paragraph of paragraphs">
+<div class="paragraph" *ngFor="let paragraph of paragraphs">
   <app-paragraph
     [paragraph]="paragraph"
     (selection)="onSelection($event)"></app-paragraph>
 </div>
+<div class="paragraph-container">
