@@ -20,7 +20,7 @@ export class ParagraphsComponent implements OnInit {
     paragraphs = [];
     paragraph: string;
 
-    constructor( @Inject('http') private http) { }
+    constructor( @Inject('httpservice') private http) { }
 
     ngOnInit() {
 

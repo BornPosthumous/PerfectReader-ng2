@@ -20,7 +20,7 @@ import { ParagraphsModule } from './components/paragraphs.module';
         ServicesModule.forRoot()
     ],
     providers: [
-        { provide: 'http', useClass: HttpService },
+        { provide: 'httpservice', useClass: HttpService },
         { provide: 'text', useClass: TextService }
     ],
     bootstrap: [AppComponent]
