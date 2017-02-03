@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { HttpService, MailService, ServicesModule, TextService } from './services/services.module';
+import { HttpService, ServicesModule, TextService } from './services/services.module';
 import { ParagraphsModule } from './components/paragraphs.module';
 
 @NgModule({
