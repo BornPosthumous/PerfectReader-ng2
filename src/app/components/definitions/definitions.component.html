@@ -1,0 +1,9 @@
+<div *ngIf="definitions">
+  <button (click)="getHistory()">Get History</button>
+<h4> {{definitions.word}}</h4>
+<div *ngFor="let def of definitions.info ">
+  <ul>
+    <li> {{ def.def }}</li>
+  </ul>
+</div>
+</div>

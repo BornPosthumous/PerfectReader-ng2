@@ -1,4 +1,17 @@
-import { Component, Inject, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Directive, HostBinding, HostListener, Inject, OnInit, Input, OnChanges } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
+@Directive({
+    selector: '[hoverWord]'
+})
+export class WordDirective {
+    @HostListener('click', ['$event'])
+    onClick($event) {
+        let word = $event.srcElement.innerHTML.replace(/\W/g, '')
+        this.httpservice.getDefinition(word)
+    }
+    constructor( @Inject('httpservice') private httpservice) { }
+}
 
 @Component({
     selector: 'app-paragraph-detail',
@@ -10,12 +23,9 @@ export class ParagraphDetailComponent implements OnInit, OnChanges {
     @Input() paragraph;
     parsed: string;
 
-    constructor( @Inject('text') private text) {
-    }
+    constructor( @Inject('text') private text) { }
 
-    ngOnInit() {
-        console.log(this.text);
-    }
+    ngOnInit() { }
 
     ngOnChanges(changes) {
         if (changes.paragraph.currentValue) {

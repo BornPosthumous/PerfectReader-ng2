@@ -12,3 +12,7 @@ p {
   overflow: scroll;
   width: 95%;
 }
+
+span {
+  padding: 0px 3px;
+}

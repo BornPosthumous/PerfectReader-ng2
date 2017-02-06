@@ -8,7 +8,8 @@ export class TextService {
     }
 
     splitter(paragraph) {
-        return paragraph.split(" ")
+        return paragraph
+            .split(/[ ]{1,}/g)
     }
 
 }

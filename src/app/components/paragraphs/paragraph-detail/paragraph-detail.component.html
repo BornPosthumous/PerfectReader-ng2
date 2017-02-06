@@ -1,3 +1,4 @@
 <p *ngIf="parsed">
-  {{ parsed }}
+  <span hoverWord *ngFor="let word of parsed" [innerHTML]="word">
+  </span>
 </p>
