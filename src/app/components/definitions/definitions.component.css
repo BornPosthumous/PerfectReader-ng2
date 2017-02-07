@@ -3,4 +3,10 @@
   position: fixed;
   bottom: 0;
   background-color: Wheat;
+  overflow: scroll;
+  height: 30vh;
+}
+
+:host li {
+  list-style-type: none;
 }

@@ -8,7 +8,7 @@ import "rxjs/add/operator/last"
 export class DefinitionsComponent implements OnInit, OnChanges {
 
     definitions: any;
-
+    history: any;
     httpService: any;
 
     constructor( @Inject('httpservice') private httpservice) {
@@ -18,10 +18,11 @@ export class DefinitionsComponent implements OnInit, OnChanges {
 
     ngOnInit() { }
     getHistory() {
-        console.log("Get history");
         this.httpService.getHistory()
+            .subscribe((e) => { this.history = e.map((s) => { console.log(s); return s }) })
     }
     ngOnChanges(changes) {
+        console.log(changes);
     }
 
 }

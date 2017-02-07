@@ -6,4 +6,16 @@
     <li> {{ def.def }}</li>
   </ul>
 </div>
+
+<ul *ngIf="history">
+  <li *ngFor="let time of history">
+    {{time.word}} --
+    <div *ngIf="time.info">
+      <ul *ngFor="let info of time.info">
+        <li *ngFor="let subinfo of info"> {{subinfo}}</li>
+      </ul>
+    </div>
+  </li>
+</ul>
+
 </div>
