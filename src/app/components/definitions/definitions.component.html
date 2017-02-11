@@ -1,21 +1,11 @@
-<div *ngIf="definitions">
-  <button (click)="getHistory()">Get History</button>
-<h4> {{definitions.word}}</h4>
-<div *ngFor="let def of definitions.info ">
+<div *ngIf="definitions | async">
+  <!-- <button (click)="getHistory()">Get History</button> -->
+
+  <div *ngFor="let d of definitions | async">
+  <h4> {{d.word}}</h4>
+<div *ngFor="let def of d.info">
   <ul>
     <li> {{ def.def }}</li>
   </ul>
 </div>
-
-<ul *ngIf="history">
-  <li *ngFor="let time of history">
-    {{time.word}} --
-    <div *ngIf="time.info">
-      <ul *ngFor="let info of time.info">
-        <li *ngFor="let subinfo of info"> {{subinfo}}</li>
-      </ul>
-    </div>
-  </li>
-</ul>
-
 </div>

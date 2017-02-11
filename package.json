@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.1",
     "core-js": "^2.4.1",
     "rambda": "^0.5.2",
     "ramda": "^0.23.0",

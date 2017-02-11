@@ -1,4 +1,4 @@
 <p *ngIf="parsed">
-  <span hoverWord *ngFor="let word of parsed" [innerHTML]="word">
+  <span lookupWord appDoubleClick *ngFor="let word of parsed" [innerHTML]="word">
   </span>
 </p>

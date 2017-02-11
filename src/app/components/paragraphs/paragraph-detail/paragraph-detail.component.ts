@@ -1,17 +1,6 @@
 import { Component, Directive, HostBinding, HostListener, Inject, OnInit, Input, OnChanges } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-@Directive({
-    selector: '[hoverWord]'
-})
-export class WordDirective {
-    @HostListener('click', ['$event'])
-    onClick($event) {
-        let word = $event.srcElement.innerHTML.replace(/\W/g, '')
-        this.httpservice.getDefinition(word)
-    }
-    constructor( @Inject('httpservice') private httpservice) { }
-}
 
 @Component({
     selector: 'app-paragraph-detail',

@@ -1,28 +1,40 @@
-import { Component, OnInit, OnChanges, Inject, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    Input,
+    Output,
+    EventEmitter,
+    HostListener
+} from '@angular/core'
+import { Store } from '@ngrx/store'
+import { Subject } from 'rxjs/Subject'
+import { Observable } from "rxjs/Observable"
+
 import "rxjs/add/operator/last"
+import "rxjs/add/operator/throttleTime"
+import "rxjs/add/operator/map"
+import "rxjs/add/operator/filter"
+import "rxjs/add/operator/buffer"
+import "rxjs/add/operator/debounce"
+
 @Component({
     selector: 'app-definitions',
     templateUrl: './definitions.component.html',
     styleUrls: ['./definitions.component.css']
 })
-export class DefinitionsComponent implements OnInit, OnChanges {
+export class DefinitionsComponent implements OnInit {
 
-    definitions: any;
-    history: any;
-    httpService: any;
+    definitions: Observable<[any]>;
 
-    constructor( @Inject('httpservice') private httpservice) {
-        this.httpService = httpservice;
-        this.httpService.getDef().subscribe((e) => { this.definitions = e })
+    constructor( @Inject('httpservice') private httpservice, private store: Store<any>) {
+        this.definitions = this.store.select('definitions')
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
     getHistory() {
-        this.httpService.getHistory()
-            .subscribe((e) => { this.history = e.map((s) => { console.log(s); return s }) })
-    }
-    ngOnChanges(changes) {
-        console.log(changes);
+
     }
 
 }
