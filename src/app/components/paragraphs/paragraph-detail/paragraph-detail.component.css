@@ -8,6 +8,18 @@ p {
   width: 95%;
 }
 
-span {
-  padding: 0px 3px;
+span.word {
+  margin: 0px;
+  padding: 0px 0px;
+}
+
+span.word-container {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+span.punctuation {
+  margin: 0px;
+  padding: 0px 0px;
 }

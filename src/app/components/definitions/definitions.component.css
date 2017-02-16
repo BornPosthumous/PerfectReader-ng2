@@ -4,9 +4,14 @@
   bottom: 0;
   background-color: Wheat;
   overflow: scroll;
-  height: 30vh;
+  max-height: 200px;
+  max-width: 200px;
 }
 
 :host li {
   list-style-type: none;
+}
+
+* {
+  font-size: 12px;
 }

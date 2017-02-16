@@ -43,7 +43,8 @@ export class HttpService implements OnInit {
             .map((res: Response) => res.json())
     }
 
-    lookupWord(word) {
+    lookupWord(term) {
+        let word = term.trim()
         this.http.get(`http://localhost:3030/api/hegels/word/${word}`)
             .map((res: Response) => res.json())
             .map((payload) => ({ type: ADD_DEF, payload }))

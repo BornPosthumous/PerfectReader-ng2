@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+#wikiPage {
+  overflow: scroll;
+  display: block;
+  height: 350px;
+}

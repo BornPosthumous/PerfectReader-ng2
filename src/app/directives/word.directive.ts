@@ -9,7 +9,7 @@ export class WordDirective {
     }
     @HostListener('click', ['$event'])
     onClick($event) {
-        let word = $event.srcElement.innerHTML.replace(/\W/g, '')
+        let word = $event.srcElement.innerHTML.trim()
         this.httpservice.lookupWord(word)
     }
 

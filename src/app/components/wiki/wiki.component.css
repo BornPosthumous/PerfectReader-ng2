@@ -1,0 +1,33 @@
+:host div#wikiSearch {
+  display: block;
+  flex: 0 0 25%;
+  border: 1px solid grey;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+  height: 350px;
+}
+
+#wikiPage {
+  flex: 0 0 75%;
+  color: white;
+  background-color: #999;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+#wikiSearch ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+#wikiSearch li {
+  list-style-type: none;
+  padding: 2px 0px;
+  margin: 0px;
+  font-size: 10px;
+  font-family: sans-serif;
+}

@@ -1,4 +1,6 @@
-<p *ngIf="parsed">
-  <span lookupWord appDoubleClick *ngFor="let word of parsed" [innerHTML]="word">
+<p *ngIf="parsed" >
+  <span *ngFor="let word of parsed" class="word-container">
+    <span class="word" *ngIf="word.isWord" lookupWord appDoubleClick> {{word.word}}</span>
+    <span class="punctuation" *ngIf="!word.isWord"> {{word.word}}</span>
   </span>
 </p>
