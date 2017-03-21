@@ -26,15 +26,26 @@ import "rxjs/add/operator/debounce"
 export class DefinitionsComponent implements OnInit {
 
     definitions: Observable<[any]>;
+    open: boolean;
 
     constructor( @Inject('httpservice') private httpservice, private store: Store<any>) {
         this.definitions = this.store.select('definitions')
+        this.open = false;
     }
 
     ngOnInit() {
     }
     getHistory() {
 
+    }
+    toggle() {
+        console.log("Toggling")
+        this.open = !this.open;
+        console.log(this.open)
+    }
+    logSelection() {
+        let selection = window.getSelection().toString();
+        console.log(selection);
     }
 
 }

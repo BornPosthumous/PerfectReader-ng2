@@ -5,11 +5,20 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { HttpService, ServicesModule, TextService, WikiService } from './services/services.module';
+import {
+    HttpService,
+    ServicesModule,
+    TextService,
+    WikiService,
+    UploadService
+} from './services/services.module';
 import { ParagraphsModule } from './components/paragraphs.module';
 import { WordDirective } from './directives/word.directive';
 import { StoreModule } from '@ngrx/store'
 import { definitions } from './reducers/definitions.reducer'
+import { paragraphs } from './reducers/paragraphs.reducer'
+import { current } from './reducers/current.reducer'
+import { books } from './reducers/books.reducer'
 import { Store } from '@ngrx/store'
 
 @NgModule({
@@ -18,7 +27,7 @@ import { Store } from '@ngrx/store'
         FormsModule, // ngDep
         HttpModule, // ngDep
         JsonpModule, //ngDep
-        StoreModule.provideStore({ definitions }),
+        StoreModule.provideStore({ definitions, paragraphs, current, books }),
         ParagraphsModule,
         ServicesModule.forRoot(),
     ],
@@ -30,6 +39,7 @@ import { Store } from '@ngrx/store'
         { provide: 'httpservice', useClass: HttpService },
         { provide: 'text', useClass: TextService },
         { provide: 'wikiservice', useClass: WikiService },
+        { provide: 'uploadservice', useClass: UploadService }
 
     ],
     bootstrap: [AppComponent]

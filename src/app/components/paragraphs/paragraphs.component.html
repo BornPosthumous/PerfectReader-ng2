@@ -1,8 +1,14 @@
-<div class="paragraph-container">
-<app-paragraph-detail [paragraph]="paragraph"></app-paragraph-detail>
-<div class="paragraph" *ngFor="let paragraph of paragraphs">
-  <app-paragraph
+<div class="paragraph-container" style="background-color: green">
+
+  <div class="button-container" >
+  <button (click)="next(-1)"> Prev </button>
+  <span>{{index}}</span>
+  <button (click)="next(1)"> Next </button>
+  </div>
+
+  <app-paragraph-detail
     [paragraph]="paragraph"
-    (selection)="onSelection($event)"></app-paragraph>
-</div>
+    [ngClass]="{show: isHidden}">
+  </app-paragraph-detail>
+
 </div>

@@ -1,11 +1,18 @@
 p {
-  background-color: black;
-  color: white;
   font-family: sans-serif;
   font-size: 18px;
   padding: 20px;
   line-height: 1.2;
-  width: 95%;
+  width: 70%;
+  margin: auto;
+}
+
+.button-container {
+  text-align: center;
+}
+
+button {
+  margin: 0px 10px;
 }
 
 span.word {

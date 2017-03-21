@@ -1,11 +1,11 @@
 import {
     Component, Directive, ViewChild, HostBinding,
     ViewContainerRef, HostListener, Inject,
-    OnInit, Input, OnChanges, AfterContentInit,
+    OnInit, Input, AfterContentInit,
     ComponentFactoryResolver
 } from '@angular/core'
-
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -13,24 +13,48 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http'
     templateUrl: './paragraph-detail.component.html',
     styleUrls: ['./paragraph-detail.component.css']
 })
-export class ParagraphDetailComponent implements OnInit, OnChanges {
+export class ParagraphDetailComponent implements OnInit {
 
     @Input() paragraph;
     parsed: string;
-    @ViewChild('container', { read: ViewContainerRef }) container;
+    unparsed: string;
+    textarea: any;
+    show: boolean;
+    id: number;
 
-    constructor( @Inject('text') private text,
-        private resolver: ComponentFactoryResolver) { }
+    @ViewChild('para') para;
 
-    ngOnInit() { }
+    constructor(
+        @Inject('text') private text,
+        @Inject('httpservice') private httpService,
+        private resolver: ComponentFactoryResolver,
+        private store: Store<any>
+    ) { }
 
-    ngOnChanges(changes) {
-        if (changes.paragraph.currentValue) {
-            let _paragraph = changes.paragraph.currentValue.text;
-            this.parsed = this.text.splitter(_paragraph);
-        }
+    ngOnInit() {
+        this.show = false
+        this.paragraph.subscribe((x) => {
+            if (x && x.text && x.id) {
+                this.id = x.id
+                this.unparsed = x.text;
+                this.parsed = this.text.splitter(this.unparsed);
+                if (this.para && this.para.nativeElement) {
+                    this.para.nativeElement.value = this.unparsed;
+                }
+            }
+        })
     }
-    ngAfterContentInit() {
-        console.log("afterContent", this.container);
+
+    save() {
+        //TODO: Should use destructuring
+        let update = this.para.nativeElement.value
+        let obj = { id: this.id + '', paragraph: update }
+        this.httpService.saveParagraph(obj).subscribe()
+
+        this.edit()
+    }
+
+    edit() {
+        this.show = !this.show
     }
 }

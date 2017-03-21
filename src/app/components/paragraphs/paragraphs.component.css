@@ -1,0 +1,11 @@
+.show {
+  display: none;
+}
+
+.button-container {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
+}

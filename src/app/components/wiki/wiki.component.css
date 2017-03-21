@@ -6,11 +6,6 @@
   box-sizing: border-box;
 }
 
-:host {
-  display: flex;
-  height: 350px;
-}
-
 #wikiPage {
   flex: 0 0 75%;
   color: white;
@@ -30,4 +25,13 @@
   margin: 0px;
   font-size: 10px;
   font-family: sans-serif;
+}
+
+.wikiContainer {
+  display: flex;
+  height: 350px;
+}
+
+.show {
+  display: none;
 }

@@ -1,3 +1,4 @@
+<div *ngIf="open">
 <div *ngIf="definitions | async">
   <!-- <button (click)="getHistory()">Get History</button> -->
 
@@ -9,3 +10,7 @@
   </ul>
 </div>
 </div>
+</div>
+</div>
+<button (click)="toggle()" style="display: block; position:fixed; bottom:0px; left: 0px; width: 100px; height: 20px;"> Definitions </button>
+<button (click)="logSelection()" style="display: block; position:fixed; bottom:0px; left: 100px; width: 100px; height: 20px;"> Log Selection </button>

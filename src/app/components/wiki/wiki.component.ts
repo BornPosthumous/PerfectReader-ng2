@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -12,16 +12,19 @@ import { Store } from '@ngrx/store'
 @Component({
     selector: 'app-wiki',
     templateUrl: './wiki.component.html',
-    styleUrls: ['./wiki.component.css']
+    styleUrls: ['./wiki.component.css'],
 })
 export class WikiComponent {
 
     items: any;
     term$ = new Subject<string>();
     definition;
+    isHidden: boolean;
 
     constructor( @Inject('wikiservice') private wikiService,
         private store: Store<any>) {
+
+        this.isHidden = true;
 
         // TODO Not sure why the array checking is necessary
         this.definition = this.store.select('definitions')
@@ -33,5 +36,12 @@ export class WikiComponent {
 
     }
 
+    @HostListener('window:keydown', ['$event'])
+    keyboardInput(event: KeyboardEvent) {
+        let key = event.key
+        if (key == 'w') {
+            this.isHidden = !this.isHidden;
+        }
+    }
 }
 

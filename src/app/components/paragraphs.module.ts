@@ -8,11 +8,35 @@ import { DefinitionsComponent } from './definitions/definitions.component';
 import { WordDirective } from '../directives/word.directive'
 import { DoubleClickDirective } from '../directives/double-click.directive';
 import { WikiComponent } from './wiki/wiki.component';
-import { WikipageComponent } from './wiki/wikipage/wikipage.component'
+import { WikipageComponent } from './wiki/wikipage/wikipage.component';
+import { UploadComponent } from './file/upload/upload.component'
+import { FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [ParagraphsComponent, ParagraphComponent, ParagraphDetailComponent, WordsComponent, DefinitionsComponent, WordDirective, DoubleClickDirective, WikiComponent, WikipageComponent],
-    exports: [ParagraphsComponent, DefinitionsComponent, CommonModule, WordDirective, DoubleClickDirective, WikiComponent]
+    imports: [
+        CommonModule,
+        FileUploadModule
+    ],
+    declarations: [
+        ParagraphsComponent,
+        ParagraphComponent,
+        ParagraphDetailComponent,
+        WordsComponent,
+        DefinitionsComponent,
+        WordDirective,
+        DoubleClickDirective,
+        WikiComponent,
+        WikipageComponent,
+        UploadComponent
+    ],
+    exports: [
+        ParagraphsComponent,
+        DefinitionsComponent,
+        CommonModule,
+        WordDirective,
+        DoubleClickDirective,
+        WikiComponent,
+        UploadComponent
+    ]
 })
 export class ParagraphsModule { }
