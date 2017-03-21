@@ -39,10 +39,10 @@ export class ParagraphsComponent implements OnInit {
         this.index = 0;
         this.isHidden = false;
 
-        this.paragraphs = this.store.select('paragraphs')
-            .map((x) => {
-                return x
-            }).subscribe()
+        // this.paragraphs = this.store.select('paragraphs')
+        //     .map((x) => {
+        //         return x
+        //     }).subscribe()
 
         this.paragraph = this.store.select('current')
             .map((x: any) => {
@@ -52,12 +52,14 @@ export class ParagraphsComponent implements OnInit {
                 } else { return {} }
             })
 
-        this.books = this.store.select('current')
-            .map((x: any) => {
-                console.log("P.C", x)
-            })
+        this.books = this.store.select('books')
+
     }
 
+    onClick(e, f) {
+        console.log("F", f)
+        this.http.getParagraphs(f).subscribe();
+    }
 
     next(delta) {
         this.index += delta;

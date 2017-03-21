@@ -59,11 +59,11 @@ export class HttpService implements OnInit {
             .map((res) => R.sortBy(R.prop('id'))(res.json()))
             .map(payload => {
                 this.store.dispatch({ type: INIT_BOOK_LIST, payload })
-                return payload
             })
     }
 
     getParagraphs(book_id = 22) {
+        console.log("Called get paragraphs")
         let bodyString = JSON.stringify({ book_id });
         let headers = new Headers({ 'Content-Type': 'application/json' })
         let options = new RequestOptions({ headers: headers });
@@ -77,8 +77,12 @@ export class HttpService implements OnInit {
             .reduce((acc: any, cur: any) =>
                 ([...acc, { id: cur.id, text: cur.paragraph, pos: cur.pos }]), [])
             .map(payload => {
+                console.log("payload", payload)
                 this.store.dispatch({ type: LOAD_BOOK, payload })
                 this.store.dispatch({ type: NEW_BOOK, payload: book_id })
+
+                let cur = payload.filter((y) => { return y.pos == 0 })
+                this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur })
             })
     }
 
@@ -88,7 +92,6 @@ export class HttpService implements OnInit {
             .map((x: any) => {
                 let cur = x.filter((y) => { return y.pos == num })
                 this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur })
-                return cur
             }).subscribe()
     }
 
