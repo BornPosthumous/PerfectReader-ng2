@@ -11,11 +11,13 @@ import { WikiComponent } from './wiki/wiki.component';
 import { WikipageComponent } from './wiki/wikipage/wikipage.component';
 import { UploadComponent } from './file/upload/upload.component'
 import { FileUploadModule } from "ng2-file-upload";
+import { WikidataComponent } from './wiki/wikidata/wikidata.component';
+import { PrettyjsonPipe } from '../pipes/prettyjson.pipe'
 
 @NgModule({
     imports: [
         CommonModule,
-        FileUploadModule
+        FileUploadModule,
     ],
     declarations: [
         ParagraphsComponent,
@@ -27,7 +29,10 @@ import { FileUploadModule } from "ng2-file-upload";
         DoubleClickDirective,
         WikiComponent,
         WikipageComponent,
-        UploadComponent
+        UploadComponent,
+        WikidataComponent,
+        PrettyjsonPipe
+
     ],
     exports: [
         ParagraphsComponent,
@@ -36,7 +41,7 @@ import { FileUploadModule } from "ng2-file-upload";
         WordDirective,
         DoubleClickDirective,
         WikiComponent,
-        UploadComponent
+        UploadComponent,
     ]
 })
 export class ParagraphsModule { }

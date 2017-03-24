@@ -6,7 +6,7 @@ import {
 } from '@angular/core'
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Store } from '@ngrx/store';
-
+import { UPDATE_PARAGRAPH } from '../../../reducers/paragraphs.reducer'
 
 @Component({
     selector: 'app-paragraph-detail',
@@ -34,9 +34,9 @@ export class ParagraphDetailComponent implements OnInit {
     ngOnInit() {
         this.show = false
         this.paragraph.subscribe((x) => {
-            if (x && x.text && x.id) {
+            if (x && x.paragraph && x.id) {
                 this.id = x.id
-                this.unparsed = x.text;
+                this.unparsed = x.paragraph;
                 this.parsed = this.text.splitter(this.unparsed);
                 if (this.para && this.para.nativeElement) {
                     this.para.nativeElement.value = this.unparsed;
@@ -46,10 +46,11 @@ export class ParagraphDetailComponent implements OnInit {
     }
 
     save() {
-        //TODO: Should use destructuring
+        //TODO: Should use destructuring. Route this through the store.
         let update = this.para.nativeElement.value
         let obj = { id: this.id + '', paragraph: update }
-        this.httpService.saveParagraph(obj).subscribe()
+        this.httpService.saveParagraph(obj).subscribe((x) => {
+        })
 
         this.edit()
     }

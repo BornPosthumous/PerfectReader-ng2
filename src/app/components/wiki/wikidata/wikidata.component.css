@@ -1,0 +1,17 @@
+.wikidata-container {
+  display: block;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+pre.wikidata {
+  background: #F1F0EA;
+  border: 1px solid #DDDBCC;
+  border-radius: 3px;
+  padding: 15px 20px;
+  overflow: scroll;
+  white-space: pre;
+}

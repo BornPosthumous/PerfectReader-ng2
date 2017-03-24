@@ -32,21 +32,16 @@ export class UploadComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log("uploading")
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             let res = JSON.parse(response);
             this.uploadID = res.id
-            console.log(res)
         }
 
         this.obs$.subscribe((x) => {
-            console.log(x);
             if (this.uploadID) {
                 this.http.getParagraphs(this.uploadID).subscribe()
             }
         })
     }
-    changeBook() {
-
-    }
+    changeBook() { }
 }

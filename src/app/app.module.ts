@@ -19,7 +19,8 @@ import { definitions } from './reducers/definitions.reducer'
 import { paragraphs } from './reducers/paragraphs.reducer'
 import { current } from './reducers/current.reducer'
 import { books } from './reducers/books.reducer'
-import { Store } from '@ngrx/store'
+import { wiki } from './reducers/wiki.reducer'
+import { Store } from '@ngrx/store';
 
 @NgModule({
     imports: [
@@ -27,7 +28,7 @@ import { Store } from '@ngrx/store'
         FormsModule, // ngDep
         HttpModule, // ngDep
         JsonpModule, //ngDep
-        StoreModule.provideStore({ definitions, paragraphs, current, books }),
+        StoreModule.provideStore({ definitions, paragraphs, current, books, wiki }),
         ParagraphsModule,
         ServicesModule.forRoot(),
     ],
@@ -40,7 +41,6 @@ import { Store } from '@ngrx/store'
         { provide: 'text', useClass: TextService },
         { provide: 'wikiservice', useClass: WikiService },
         { provide: 'uploadservice', useClass: UploadService }
-
     ],
     bootstrap: [AppComponent]
 })

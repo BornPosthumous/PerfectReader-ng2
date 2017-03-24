@@ -28,7 +28,7 @@ import 'rxjs/add/operator/skip'
 import 'rxjs/add/operator/scan'
 import { Store } from '@ngrx/store';
 import { ADD_DEF } from '../../reducers/definitions.reducer'
-import { ADD_PARAGRAPH, LOAD_BOOK } from '../../reducers/paragraphs.reducer'
+import { ADD_PARAGRAPH, LOAD_BOOK, UPDATE_PARAGRAPH } from '../../reducers/paragraphs.reducer'
 import { NEW_BOOK, NEW_PARAGRAPH, CURRENT_PARAGRAPH } from '../../reducers/current.reducer'
 import { INIT_BOOK_LIST } from '../../reducers/books.reducer'
 import * as R from 'ramda'
@@ -46,9 +46,7 @@ export class HttpService implements OnInit {
         this.getBooks().subscribe((x) => { })
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     getBooks() {
         let bodyString = JSON.stringify({ book_id: 8 })
@@ -63,7 +61,6 @@ export class HttpService implements OnInit {
     }
 
     getParagraphs(book_id = 22) {
-        console.log("Called get paragraphs")
         let bodyString = JSON.stringify({ book_id });
         let headers = new Headers({ 'Content-Type': 'application/json' })
         let options = new RequestOptions({ headers: headers });
@@ -75,14 +72,13 @@ export class HttpService implements OnInit {
             })
             .flatMap((item) => item)
             .reduce((acc: any, cur: any) =>
-                ([...acc, { id: cur.id, text: cur.paragraph, pos: cur.pos }]), [])
+                ([...acc, { id: cur.id, paragraph: cur.paragraph, pos: cur.pos }]), [])
             .map(payload => {
-                console.log("payload", payload)
                 this.store.dispatch({ type: LOAD_BOOK, payload })
                 this.store.dispatch({ type: NEW_BOOK, payload: book_id })
 
                 let cur = payload.filter((y) => { return y.pos == 0 })
-                this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur })
+                this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur[0] })
             })
     }
 
@@ -91,7 +87,7 @@ export class HttpService implements OnInit {
         this.store.select('paragraphs')
             .map((x: any) => {
                 let cur = x.filter((y) => { return y.pos == num })
-                this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur })
+                this.store.dispatch({ type: CURRENT_PARAGRAPH, payload: cur[0] })
             }).subscribe()
     }
 
@@ -114,8 +110,17 @@ export class HttpService implements OnInit {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.api + `paragraphs/update`, bodyString, options)
-            ._do((x) => { console.log(x) })
-            .map((res: Response) => res.json())
+            .map((res: Response) => { return res.json()[0] })
+            .do((x) => {
+                this.store.dispatch({
+                    type: UPDATE_PARAGRAPH,
+                    payload: { id: text.id, paragraph: x.paragraph }
+                })
+                this.store.dispatch({
+                    type: CURRENT_PARAGRAPH,
+                    payload: { id: text.id, paragraph: x.paragraph }
+                })
+            })
     }
 
 }

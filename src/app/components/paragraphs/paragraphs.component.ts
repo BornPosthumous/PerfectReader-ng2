@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 
 import { NEW_BOOK, NEW_PARAGRAPH, CURRENT_PARAGRAPH } from '../../reducers/current.reducer'
 
+
 @Component({
     selector: 'app-paragraphs',
     templateUrl: './paragraphs.component.html',
@@ -46,18 +47,15 @@ export class ParagraphsComponent implements OnInit {
 
         this.paragraph = this.store.select('current')
             .map((x: any) => {
-                if (x.currentParagraph && x.currentParagraph[0]) {
-                    console.log("P.C", x.currentParagraph)
-                    return x.currentParagraph[0]
+                if (x.currentParagraph) {
+                    return x.currentParagraph
                 } else { return {} }
             })
 
         this.books = this.store.select('books')
-
     }
 
     onClick(e, f) {
-        console.log("F", f)
         this.http.getParagraphs(f).subscribe();
     }
 

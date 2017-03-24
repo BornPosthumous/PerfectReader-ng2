@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core'
 import { URLSearchParams, Jsonp } from '@angular/http'
-import 'rxjs/add/operator/delay'
+import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs/Observable'
+import { WIKIDATA } from '../../reducers/wiki.reducer'
+import 'rxjs/add/operator/delay'
+var wtf_wikipedia = require("wtf_wikipedia")
 
 @Injectable()
 export class WikiService {
 
-    constructor(private jsonp: Jsonp) {
-        this.search2('hello').subscribe();
-    }
+    constructor(
+        private jsonp: Jsonp,
+        private store: Store<any>
+    ) { }
 
     search(terms: Observable<string>, debounceMs = 400) {
         return terms
@@ -27,7 +31,6 @@ export class WikiService {
             .get('https://en.wikipedia.org/w/api.php?callback=JSONP_CALLBACK',
             { search })
             .map(response => {
-                console.log(response.json()[1]);
                 return response.json()[1]
             });
     }
@@ -36,17 +39,47 @@ export class WikiService {
         let search = new URLSearchParams();
         search.set('format', 'json');
         search.set('action', 'parse');
-        // search.set('prop', 'extracts');
         search.set('page', term);
-        // search.set('exintro', '&');
-        // search.set('titles', term);
-        // search.set('titles', 'hello');
-        // search.set('rvprop', 'content');
+        search.set('callback', 'JSONP_CALLBACK');
 
+        // return this.jsonp.get('https://en.wikipedia.org/w/api.php?', { search })
+        //     .map(response => { return response.json() })
+        //     .map((page) => (page && page.parse) ? page.parse.text['*'] : '')
+        return Observable.of('');
+    }
+
+    searchData(term: string) {
+        console.log("Searchdata: WIKISERVICE ", term)
+        let search = new URLSearchParams();
+        search.set('format', 'json');
+        search.set('action', 'parse');
+        search.set('prop', 'wikitext');
+        search.set('page', term);
         search.set('callback', 'JSONP_CALLBACK');
 
         return this.jsonp.get('https://en.wikipedia.org/w/api.php?', { search })
-            .map(response => { return response.json() })
-            .map((page) => page ? page.parse.text['*'] : '')
+            .map(response => {
+                return response.json()
+            })
+            .map((x) => {
+                return wtf_wikipedia.parse(x.parse.wikitext['*'])
+            })
+            .map((x) => {
+                let iter = x.text
+                console.log("Iter", iter)
+                if (iter && iter.entries) {
+                    console.log("Is iterable? ",
+                        this.isIterable(iter.entries))
+                }
+                this.store.dispatch({ type: WIKIDATA, payload: x })
+                return x;
+            })
+    }
+    isIterable(obj) {
+        // checks for null and undefined
+        if (obj == null) {
+            return false;
+        }
+        return typeof obj[Symbol.iterator] === 'function';
     }
 }
