@@ -29,7 +29,7 @@ export class WikiComponent {
         // TODO Not sure why the array checking is necessary
         this.definition = this.store.select('definitions')
             .map((e) => { if (Array.isArray(e)) { return e[e.length - 1] } })
-            .map((e) => { if (e && e.word) { return eword } })
+            .map((e) => { if (e && e.word) { return e.word } })
 
         this.wikiService.search(this.term$.merge(this.definition))
             .subscribe(results => this.items = results)
