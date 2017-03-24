@@ -1,13 +1,14 @@
 <div class="button-container">
-  <button (click)="edit()"> Edit </button>
-  <button (click)="save()"> Save </button>
+  <button (click)="edit()"  #makeEdit> Edit </button>
+  <button (click)="save()" [disabled]="isEditing"> Save </button>
 </div> 
-<p *ngIf="parsed && !show" >
-  <span *ngFor="let word of parsed" class="word-container">
-    <span class="word" *ngIf="word.isWord" lookupWord appDoubleClick> {{word.word}}</span>
-    <span class="punctuation" *ngIf="!word.isWord"> {{word.word}}</span>
-  </span>
+<p *ngIf="parsed" contenteditable="true" #editP [innerHtml]="unparsed"
+(mouseup)="selectText();">
+  <!-- <span *ngFor="let word of parsed" class="word-container">
+       <span class="word" *ngIf="word.isWord" lookupWord appDoubleClick> {{word.word}}</span>
+       <span class="punctuation" *ngIf="!word.isWord"> {{word.word}}</span>
+       </span> -->
 </p>
-<textarea #para *ngIf="unparsed && show"
-  cols="{{unparsed.length < 90 ? unparsed.length : 100}}" rows="10" [(innerHtml)]="unparsed" >
-</textarea>
+<!-- <textarea #para *ngIf="unparsed" [hidden]="!show"
+     cols="{{unparsed.length < 90 ? unparsed.length : 100}}" rows="10" [(innerHtml)]="unparsed" >
+     </textarea> -->

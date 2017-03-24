@@ -1,4 +1,3 @@
-<app-wikidata></app-wikidata>
 <div class="wikiContainer" [ngClass]="{show: isHidden}">
 <div id="wikiSearch">
   <input (input)="term$.next($event.target.value)">
@@ -10,3 +9,4 @@
   <app-wikipage [wikiPage]="definition | async"></app-wikipage>
 </div>
 </div>
+<app-wikidata></app-wikidata>

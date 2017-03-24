@@ -6,14 +6,14 @@ import { Directive, Inject, HostListener } from '@angular/core';
 
 export class WordDirective {
     constructor(
-        @Inject('httpservice') private httpservice,
+        @Inject('httpservice') private httpService,
         @Inject('wikiservice') private wikiService
     ) { }
 
     @HostListener('click', ['$event'])
     onClick($event) {
         let word = $event.srcElement.innerHTML.trim()
-        this.httpservice.lookupWord(word)
+        this.httpService.lookupWord(word)
         this.wikiService.searchData(word).subscribe();
     }
 
