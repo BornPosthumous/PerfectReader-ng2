@@ -1,0 +1,14 @@
+<canvas
+  #destCanvas
+  width="{{destWidth}}"
+  height="{{destHeight}}"
+  [hidden]="!showCanvas"
+></canvas>
+
+<img #img src="{{src}}" (load)="imgLoaded()" style="display: none;">
+<canvas
+  #canvas
+  width="{{width}}"
+  height="{{height}}"
+  style="display: none;"
+></canvas>

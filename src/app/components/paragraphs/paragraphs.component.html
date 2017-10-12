@@ -5,12 +5,21 @@
   <span>{{index}}</span>
   <button (click)="next(1)"> Next </button>
   </div>
+  <div *ngIf="selectedBook" style="display: flex; flex-direction: row;">
+    <p [innerHTML]="selectedBook.title"></p>
+    <p [innerHTML]="selectedBook.id"></p>
+    <button (click)="deleteBook($event, selectedBook)"> Delete </button>
+  </div>
+
   <ul style="list-style-type: none;">
     <li
       style="display: inline-block; padding: 5px;"
       *ngFor="let book of books | async"
       (click)="onClick($event, book)"
-    >{{book}}</li></ul>
+    >{{book.title}}</li></ul>
+
+
+
   <app-paragraph-detail
     [paragraph]="paragraph"
     [ngClass]="{show: isHidden}">

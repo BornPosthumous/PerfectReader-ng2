@@ -1,4 +1,32 @@
+
+<input type="text" placeholder="Title . . ." name="title"  #bookTitle />
+
 <input type="file" ng2FileSelect [uploader]="uploader" />
-<button type="button" class="btn btn-success btn-s"
+
+<input type="text" placeholder="ocrUrl"  name="ocr"  #ocrUrl />
+<button
+  type="button"
+  class=""
   (click)="uploader.uploadAll()">Upload</button>
+
 <button (click)="obs.next($event)"> NEXT! </button>
+<button (click)="ocr.next($event)"> OCR </button>
+<div> {{ocrResponse}}</div>
+
+<br>
+<div *ngFor="let option of options">
+  <app-magick-input [opts]="option" ></app-magick-input>
+</div>
+<input (keyup)="onChange($event)" type="text" placeholder="Magickal"      name="magick"        #imgMagick  />
+<label> Grey Scale</label><input (click)="onChange($event)" type="checkbox"                         name="greyscale"     #greyscale  />
+<input (keyup)="onChange($event)" type="text" placeholder="enhance"       name="enhance"       #enhance    />
+<!-- <input (keyup)="onChange($event)" type="text" placeholder="filterSize"    name="filterSize"    #filterSize /> -->
+<input (keyup)="onChange($event)" type="text" placeholder="offset"        name="offset"        #offset     />
+<input (keyup)="onChange($event)" type="text" placeholder="unrotate"      name="unrotate"      #unrotate   />
+  <input (keyup)="onChange($event)" type="text" placeholder="sharp"         name="sharp"         #sharp      />
+  <input (keyup)="onChange($event)" type="text" placeholder="trim"          name="trim"          #trim       />
+  <input (keyup)="onChange($event)" type="text" placeholder="borderPadding" name="borderPadding" #borderPad  />
+  <input (keyup)="onChange($event)" type="text" placeholder="threshold"     name="threshold"     #threshold  />
+
+  <button (click)="mag.next($event)"> MagickIt </button>
+  <div [innerHTML]="imgData"></div>

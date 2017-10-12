@@ -30,6 +30,8 @@ export class ParagraphsComponent implements OnInit {
     current: Observable<any>;
     index: number;
     isHidden: boolean;
+    isHovered: boolean;
+    selectedBook;
 
     constructor(
         @Inject('httpservice') private http,
@@ -53,10 +55,19 @@ export class ParagraphsComponent implements OnInit {
             })
 
         this.books = this.store.select('books')
+        this.items.subscribe((x) => {
+            this.isHovered = true;
+            this.selectedBook = x;
+        })
     }
 
+    deleteBook(e, b) {
+        console.log("E,B", e, b)
+        this.http.deleteBook(b.id)
+    }
     onClick(e, f) {
-        this.http.getParagraphs(f).subscribe();
+        this.http.getParagraphs(f.id).subscribe();
+        this.items.next(f)
     }
 
     next(delta) {

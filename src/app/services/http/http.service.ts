@@ -30,7 +30,7 @@ import { Store } from '@ngrx/store';
 import { ADD_DEF } from '../../reducers/definitions.reducer'
 import { ADD_PARAGRAPH, LOAD_BOOK, UPDATE_PARAGRAPH } from '../../reducers/paragraphs.reducer'
 import { NEW_BOOK, NEW_PARAGRAPH, CURRENT_PARAGRAPH } from '../../reducers/current.reducer'
-import { INIT_BOOK_LIST } from '../../reducers/books.reducer'
+import { INIT_BOOK_LIST, DELETE_BOOK } from '../../reducers/books.reducer'
 import * as R from 'ramda'
 
 @Injectable()
@@ -56,10 +56,27 @@ export class HttpService implements OnInit {
         return this.http.get(this.api + `texts`)
             .map((res) => R.sortBy(R.prop('id'))(res.json()))
             .map(payload => {
+                console.log("booklist", payload)
                 this.store.dispatch({ type: INIT_BOOK_LIST, payload })
             })
     }
 
+    //TODO use delete method :)
+    deleteBook(id) {
+
+        let bodyString = JSON.stringify({ id: id });
+        let headers = new Headers({ 'Content-Type': 'application/json' })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.api + `texts/deleteID`, bodyString, options)
+            .map((res) => res.json())
+            .map((payload) => {
+                console.log("payload", payload)
+                this.store.dispatch({ type: DELETE_BOOK, payload: payload[0] })
+            })
+            .subscribe()
+
+    }
     getParagraphs(book_id = 22) {
         let bodyString = JSON.stringify({ book_id });
         let headers = new Headers({ 'Content-Type': 'application/json' })

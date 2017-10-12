@@ -16,5 +16,4 @@ export class WordDirective {
         this.httpService.lookupWord(word)
         this.wikiService.searchData(word).subscribe();
     }
-
 }

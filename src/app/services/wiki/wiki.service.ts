@@ -64,15 +64,20 @@ export class WikiService {
             .map((x) => {
                 return wtf_wikipedia.parse(x.parse.wikitext['*'])
             })
-            .map((x) => {
-                let iter = x.text
-                console.log("Iter", iter)
-                if (iter && iter.entries) {
-                    console.log("Is iterable? ",
-                        this.isIterable(iter.entries))
+            .map((parsed) => {
+                let iter = parsed.text
+                if (iter) {
+                    let sections = []
+                    iter.forEach((e, f) => {
+                        sections.push({
+                            title: f,
+                            paragraphs: e
+                        })
+                    })
+                    parsed.text = sections;
                 }
-                this.store.dispatch({ type: WIKIDATA, payload: x })
-                return x;
+                this.store.dispatch({ type: WIKIDATA, payload: parsed })
+                return parsed;
             })
     }
     isIterable(obj) {

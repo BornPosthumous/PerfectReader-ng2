@@ -7,6 +7,11 @@ import {
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Store } from '@ngrx/store';
 import { UPDATE_PARAGRAPH } from '../../../reducers/paragraphs.reducer'
+import { Subject } from 'rxjs/Subject'
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/observable/of'
+import 'rxjs/add/operator/debounceTime'
+import 'rxjs/add/operator/bufferWhen'
 
 @Component({
     selector: 'app-paragraph-detail',
@@ -16,15 +21,15 @@ import { UPDATE_PARAGRAPH } from '../../../reducers/paragraphs.reducer'
 export class ParagraphDetailComponent implements OnInit {
 
     @Input() paragraph;
-    parsed: string;
     unparsed: string;
     textarea: any;
-    show: boolean;
     id: number;
     isEditing: boolean;
+    private obs = new Subject();
+    public obs$ = this.obs.asObservable();
 
-    @ViewChild('para') para;
     @ViewChild('editP') editP;
+
     constructor(
         @Inject('text') private text,
         @Inject('httpservice') private httpService,
@@ -34,28 +39,30 @@ export class ParagraphDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.show = false
         this.paragraph.subscribe((x) => {
             if (x && x.paragraph && x.id) {
                 this.id = x.id
                 this.unparsed = x.paragraph;
-                this.parsed = this.text.splitter(this.unparsed);
-                if (this.para && this.para.nativeElement) {
-                    this.para.nativeElement.value = this.unparsed;
-                }
             }
         })
+
+        this.obs.bufferWhen(() =>
+            this.obs.debounceTime(250))
+            .map(list => list.length)
+            .filter(length => length >= 2)
+            .subscribe(totalClicks => {
+                window.getSelection().empty()
+                console.log("Total clicks : ${totalClicks}")
+            })
     }
+
     save() {
-        //TODO: Should use destructuring. Route this through the store.
-        console.log(this.para)
-        let update = this.para.nativeElement.value
-        let obj = { id: this.id + '', paragraph: update }
+        let obj = { id: this.id + '', paragraph: this.unparsed }
         console.log("Saving", obj)
         this.httpService.saveParagraph(obj).subscribe((x) => {
         })
-
     }
+
     selectText() {
         var sel;
 
@@ -93,18 +100,6 @@ export class ParagraphDetailComponent implements OnInit {
                 this.httpService.lookupWord(word)
                 this.wikiService.searchData(word).subscribe();
             }
-        }
-    }
-
-    edit() {
-        this.show = !this.show
-        this.isEditing = !this.isEditing
-
-        this.editP.nativeElement.contentEditable = this.isEditing;
-        if (this.para && this.para.nativeElement) {
-            let update = this.para.nativeElement.value
-            this.unparsed = update;
-
         }
     }
 

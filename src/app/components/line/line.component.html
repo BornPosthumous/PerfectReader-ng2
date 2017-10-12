@@ -1,0 +1,10 @@
+<p
+  (mouseover)="selectLine($event)"
+  [attr.id] ="line.id"
+>
+  <app-ocr-word
+    *ngFor="let word of line.wordsInLine"
+    [word]="word"
+    (selectedWord)="selectWord($event)"
+  ></app-ocr-word>
+</p>

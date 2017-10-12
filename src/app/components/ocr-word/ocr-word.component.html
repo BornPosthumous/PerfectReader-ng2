@@ -1,0 +1,9 @@
+<span
+  [attr.id] ="word.id"
+  [attr.topLeftX]="word.title.topLeft.x"
+  [attr.topLeftY]="word.title.topLeft.y"
+  [attr.bottomRightX] ="word.title.bottomRight.x"
+  [attr.bottomRightY] ="word.title.bottomRight.y"
+  [attr.lineId] ="word.lineId"
+  (mouseover)="selectWord($event)"
+> {{ word.word}}</span>

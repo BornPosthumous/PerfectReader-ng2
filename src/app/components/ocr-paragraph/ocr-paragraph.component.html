@@ -1,0 +1,7 @@
+<p>
+  <app-line *ngFor="let line of lines"
+    (selectedLine)="lineSelected($event)"
+    (selectedWord)="wordSelected($event)"
+    [line]="line"
+  ></app-line>
+</p>

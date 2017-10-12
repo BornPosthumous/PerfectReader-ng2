@@ -1,0 +1,11 @@
+<div style="display: flex; flex-direction: column; width: 100px;" >
+  <label> {{options.name}} : {{options.value}}  </label>
+  <input
+    (mouseup)="onChange($event.target)"
+    type="{{options.type}}"
+    min="{{(options.min) ? options.min : null}}"
+    max="{{(options.max) ? options.max : null}}"
+    value="{{(options.value =='range') ? options.value : null}}"
+    step="{{(options.step) ? options.step : null}}"
+    checked="{{(options.type == 'checkbox') ? options.value : null}}" #filterSize>
+</div>

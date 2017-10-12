@@ -18,32 +18,28 @@ import { Store } from '@ngrx/store'
 export class WikidataComponent {
 
     wikiData: any;
-    // term$ = new Subject<string>();
-    // definition;
-    // isHidden: boolean;
 
     constructor(
         @Inject('wikiservice') private wikiService,
         private store: Store<any>
     ) {
-
         // this.isHidden = false;
-
-        // this.wikiService.search(this.term$.merge(this.definition))
-        //     .subscribe(results => this.items = results)
-
-        // this.wikiService.searchData("book")
-        //     .do((x) => { console.log(x) })
-        //     .subscribe()
-
-        // this.wikiData = this.store.select('wiki').do((x) => { console.log("loggin", x) })
-
         this.store.select('wiki').do((x) => { console.log("loggin", x) })
-            .subscribe((x) => {
-                console.log("wikidata component", x);
-                this.wikiData = x;
-            });
+            .subscribe((x: any) => {
+                console.log("XX", x.text)
+                if (x && x.text) {
+                    let textModel = x.text;
+                    this.wikiData = textModel
+                        .map((t) => ({
+                            text: t.paragraphs
+                                .map((p) => p.text)
+                                .reduce((acc, val) => {
+                                    return acc + ' ' + val;
+                                })
+                        }))
 
+                }
+            });
     }
 
     // @HostListener('window:keydown', ['$event'])

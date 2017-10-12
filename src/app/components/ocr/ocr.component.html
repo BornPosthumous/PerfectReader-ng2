@@ -1,0 +1,13 @@
+<div>
+<div style="">
+  <app-canvas-word
+    [selected]="currentWord"
+    style=""
+  ></app-canvas-word>
+</div>
+  <app-ocr-paragraph
+    (lineAndWord)="changeCanvas($event)"
+    style="width: 60%;
+           margin: auto"
+  ></app-ocr-paragraph>
+</div>

@@ -1,15 +1,15 @@
 
 import {
-    Injectable,
-    OnInit,
-    Inject,
-} from '@angular/core';
+  Injectable,
+  OnInit,
+  Inject,
+} from '@angular/core'
 import {
-    Http,
-    Response,
-    Headers,
-    RequestOptions
-} from '@angular/http';
+  Http,
+  Response,
+  Headers,
+  RequestOptions
+} from '@angular/http'
 import { Observable } from 'rxjs/Rx'
 import { BehaviorSubject } from "rxjs/BehaviorSubject"
 import { ReplaySubject } from "rxjs/ReplaySubject"
@@ -35,53 +35,36 @@ import * as R from 'ramda'
 @Injectable()
 export class UploadService {
 
-    private api = 'http://localhost:8080/api/';
+  private api = 'http://localhost:8080/api/';
 
-    constructor(private http: Http, private store: Store<any>) { }
+  constructor(private http: Http, private store: Store<any>) { }
 
-    ngOnInit() { }
+  ngOnInit() { }
 
-    // getBooks() {
-    //     let bodyString = JSON.stringify({ book_id: 8 });
-    //     let headers = new Headers({ 'Content-Type': 'application/json' })
-    //     let options = new RequestOptions({ headers: headers });
+  ocrImage(url) {
+    let filename = 'file';
+    let bodyString = JSON.stringify({ filename, url });
+    let headers = new Headers({ 'Content-Type': 'application/json' })
+    let options = new RequestOptions({ headers: headers })
 
-    //     return this.http.post(this.api + `texts`, bodyString, options)
-    //         .map((res) => R.sortBy(R.prop('id'))(res.json()))
+    return this.http.post(this.api + `texts/ocrurl`, bodyString, options)
+      .map((res) => res.json());
+  }
+  magickImage(url, magickOptions) {
+    let filename = 'file';
+    let bodyString = JSON.stringify({ filename, url, magickOptions });
+    let headers = new Headers({ 'Content-Type': 'application/json' })
+    let options = new RequestOptions({ headers: headers })
+    console.log("Sending Magick")
+    return this.http.post(this.api + `texts/magick`, bodyString, options)
+      .map((res) => { console.log("Magick response", res); return res });
+  }
+  testXML() {
+    let bodyString = JSON.stringify({});
+    let headers = new Headers({ 'Content-Type': 'text/html' })
+    let options = new RequestOptions({ headers: headers })
 
-    // }
-
-    // getParagraphs() {
-    //     let bodyString = JSON.stringify({ book_id: 8 });
-    //     let headers = new Headers({ 'Content-Type': 'application/json' })
-    //     let options = new RequestOptions({ headers: headers });
-
-    //     return this.http.post(this.api + `paragraphs/book`, bodyString, options)
-    //         .map((res) => R.sortBy(R.prop('id'))(res.json()))
-    // }
-    // getParagraph() {
-    //     return this.http.get(this.api + 'paragraphs')
-    //         .map((res: Response) => res.json())
-    // }
-
-    // lookupWord(term) {
-    //     let word = term.trim()
-    //     this.http.get(`http://localhost:3030/api/hegels/word/${word}`)
-    //         .map((res: Response) => res.json())
-    //         .map((payload) => ({ type: ADD_DEF, payload }))
-    //         .subscribe((a) => this.store.dispatch(a))
-    // }
-
-    // saveParagraph(text) {
-    //     console.log(text);
-    //     let bodyString = JSON.stringify(text);
-    //     let headers = new Headers({ 'Content-Type': 'application/json' })
-    //     let options = new RequestOptions({ headers: headers });
-
-    //     return this.http.post(this.api + `paragraphs/update`, bodyString, options)
-    //         ._do((x) => { console.log(x) })
-    //         .map((res: Response) => res.json())
-
-    // }
-
+    return this.http.post(this.api + `texts/ocrtest`, bodyString, options)
+      .map((res) => res.json());
+  }
 }

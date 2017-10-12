@@ -8,10 +8,12 @@
 
 #wikiPage {
   flex: 0 0 75%;
-  color: white;
-  background-color: #999;
   font-size: 12px;
   font-family: sans-serif;
+  padding: 50px;
+  text-indent: 3em;
+  box-sizing: border-box;
+  line-height: 1.4;
 }
 
 #wikiSearch ul {
